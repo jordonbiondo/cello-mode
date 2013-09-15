@@ -52,10 +52,11 @@
   ;; TODO: hackish, only works on types
   "Browse the libCello docs for the thing at point."
   (interactive)
-  (browse-url (format "http://%s/reference/%s" 
-		      cello-home-url 
-		      (downcase (symbol-name (symbol-at-point))))))
-  
+  (let* ((sym (symbol-at-point))
+	 (thing-to-browse (when sym (downcase (symbol-name sym)))))
+    (if thing-to-browse
+	(browse-url (format "http://%s/reference/%s" cello-home-url thing-to-browse))
+      (message "Nothing browsable at point"))))
 
 (defconst cello-font-lock-keywords
   `(("\\(\\$\\)\\( *( *\\)\\(\[A-Z][A-Za-z_0-9]*\\)"
@@ -85,7 +86,10 @@
 			"format_to" "format_from" "format_to_va" "format_from_va" "show" "show_to" 
 			"print" "print_to" "print_va" "print_to_va" "look" "look_from" "scan" 
 			"scan_from" "scan_va" "scan_from_va" "println" "scanln" "current" "join" 
-			"terminate" "lock" "unlock" "lock_try") 
+			"terminate" "lock" "unlock" "lock_try" "New" "Assign" "Copy" "Eq" "Ord" 
+			"Hash" "Serialize" "AsLong" "AsDouble" "AsStr" "AsChar" "Num" "Collection" 
+			"Reverse" "Iter" "Push" "At" "Dict" "With" "Stream" "Call" "Retain" "Sort" 
+			"Append" "Show" "Format" "Process" "Lock") 
 		  'words) . font-lock-builtin-face))
     "A list of Cello keywords.")
 
@@ -94,14 +98,10 @@
   (easy-menu-define cello-menu cello-mode-map "Cello Mode menu"
     '("Cello"
       :help "Cello-specific features"
-      ["Cello browse doc at point" 'cello-browse-doc-at-point
+      ["Cello browse doc at point" cello-browse-doc-at-point
       :help "Open the documentation for the thing at point."]
     )))
 
 (provide 'cello-mode)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; cello-mode.el ends here
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; cello-mode.el ends here
