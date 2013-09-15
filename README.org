@@ -8,5 +8,3 @@
 ** Features
    - Syntax Highlighting
    - Browse type references at point
-** Future Plans
-   - Auto-complete dictionary
