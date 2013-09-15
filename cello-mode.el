@@ -62,18 +62,26 @@
   `(("\\(\\$\\)\\( *( *\\)\\(\[A-Z][A-Za-z_0-9]*\\)"
       (1 font-lock-constant-face)
       (3 font-lock-type-face))
+    ("\\(\\new\\)\\( *( *\\)\\(\[A-Z][A-Za-z_0-9]*\\)"
+     (1 font-lock-builtin-face)
+     (3 font-lock-type-face))
+    ("\\([A-Za-z_][A-Za-z0-9_]* +\\)\\(in +\\)\\([A-Za-z_][A-Za-z0-9_]* *\\)"
+     (1 font-lock-variable-name-face)
+     (2 font-lock-keyword-face)
+     (3 font-lock-variable-name-face))
     ;; keywords
-    (,(regexp-opt (list "var" "is" "not" "and" "or" "foreach" "try" "catch" "throw" "if_eq" 
-			"if_neq" "if_gt" "if_lt" "if_ge" "if_le" "as" "size_t" "true" "false" 
+    (,(regexp-opt (list "var" "is" "with" "not" "and" "or" "foreach" "try" "catch" "throw" "if_eq" 
+			"if_neq" "if_gt" "if_lt" "if_ge" "if_le" "as" "local" "global" "in"
 			"va_list*" "var*" "va_list"  "volatile" "module" "class" "data" 
 			"instance" "methods" "methods_begin" "method" "methods_end" "defined" 
 			"lambda" "lambda_id" "lambda_const" "lambda_compose" "lambda_flip" 
 			"lambda_partial" "lambda_partial_l" "lambda_partial_r" "lambda_void" 
-			"lambda_uncurry" "lambda_void_uncurry" "lambda_pipe" "lambda_method_pipe" 
-			"local" "global" "in" ) 
+			"lambda_uncurry" "lambda_void_uncurry" "lambda_pipe" "lambda_method_pipe" )
 		  'words) . font-lock-keyword-face)
+    (,(regexp-opt (list "True" "False" )
+		  'words) . font-lock-constant-face)
     ;; cello functions
-    (,(regexp-opt (list "lit" "cast" "with" "new" "delete" "allocate" "deallocate" "construct" 
+    (,(regexp-opt (list "lit" "cast" "delete" "allocate" "deallocate" "construct" 
 			"destruct" "assign" "copy" "eq" "neq" "gt" "lt" "ge" "le" "len" "clear" 
 			"contains" "discard" "is_empty" "sort" "maximum" "minimum" "reverse" 
 			"iter_start" "iter_end" "iter_next" "hash" "push" "push_at" "push_back" 
