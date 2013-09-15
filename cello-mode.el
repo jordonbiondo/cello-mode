@@ -78,7 +78,7 @@
 			"lambda_partial" "lambda_partial_l" "lambda_partial_r" "lambda_void" 
 			"lambda_uncurry" "lambda_void_uncurry" "lambda_pipe" "lambda_method_pipe" )
 		  'words) . font-lock-keyword-face)
-    (,(regexp-opt (list "True" "False" )
+    (,(regexp-opt (list "True" "False" "None" )
 		  'words) . font-lock-constant-face)
     ;; cello functions
     (,(regexp-opt (list "lit" "cast" "delete" "allocate" "deallocate" "construct" 
