@@ -1,33 +1,46 @@
 ;;; cello-mode.el --- Major mode for editting C source code that uses libcello
-;;
-;; Author: Jordon Biondo
-;; URL: https://github.com/jordonbiondo/cello-mode
+;; 
+;; Filename: cello-mode.el
+;; Description: Major mode for editting C source code that uses libcello
+;; Author: Jordon Biondo <biondoj@mail.gvsu.edu>
+;; Created: Sat Sep 14 21:39:32 2013 (-0400)
+;; Version: 0.1.1
+;; Package-Requires: ()
+;; Last-Updated: Sat Sep 14 21:41:54 2013 (-0400)
+;;           By: Jordon Biondo
+;;     Update #: 3
+;; URL: http://github.com/jordonbiondo/cello-mode.git
 ;; Keywords: c, languages, tools, cello
-;; Compatibility: Emacs 24.x
-;;
+;; Compatibility: 
+;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;;; Commentary:
-;;
-;; Provide a major mode for C source code files that use libcello.
-;;
+;; 
+;;; Commentary: 
+;; Major mode for editting C source code that uses libcello
+;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 
+;;; Change Log:
 ;;
+;;  Sat Sep 14 21:40:59 EDT 2013: creation
+;; 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
 ;; published by the Free Software Foundation; either version 3, or
 ;; (at your option) any later version.
-;;
+;; 
 ;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 ;; General Public License for more details.
-;;
+;; 
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program; see the file COPYING.  If not, write to
 ;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
 ;; Floor, Boston, MA 02110-1301, USA.
-;;
+;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Code:
@@ -86,6 +99,9 @@
     )))
 
 (provide 'cello-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; cello-mode.el ends here
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; cello-mode.el ends here
