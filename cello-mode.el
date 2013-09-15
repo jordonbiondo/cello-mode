@@ -6,12 +6,12 @@
 ;; Created: Sat Sep 14 21:39:32 2013 (-0400)
 ;; Version: 0.1.1
 ;; Package-Requires: ()
-;; Last-Updated: Sat Sep 14 21:41:54 2013 (-0400)
+;; Last-Updated: Sun Sep 15 10:00:16 2013 (-0400)
 ;;           By: Jordon Biondo
-;;     Update #: 3
+;;     Update #: 5
 ;; URL: http://github.com/jordonbiondo/cello-mode.git
 ;; Keywords: c, languages, tools, cello
-;; Compatibility: 
+;; Compatibility: Emacs 24.x
 ;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
