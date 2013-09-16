@@ -65,6 +65,9 @@
     ("\\(\\new\\)\\( *( *\\)\\(\[A-Z][A-Za-z_0-9]*\\)"
      (1 font-lock-builtin-face)
      (3 font-lock-type-face))
+    ("\\(\\lambda\\)\\( *( *\\)\\(\[a-zA-Z_][A-Za-z_0-9]*\\)"
+     (1 font-lock-keyword-face)
+     (3 font-lock-function-name-face))
     ("\\([A-Za-z_][A-Za-z0-9_]* +\\)\\(in +\\)\\([A-Za-z_][A-Za-z0-9_]* *\\)"
      (1 font-lock-variable-name-face)
      (2 font-lock-keyword-face)
@@ -109,6 +112,7 @@
       ["Cello browse doc at point" cello-browse-doc-at-point
       :help "Open the documentation for the thing at point."]
     )))
+
 
 (provide 'cello-mode)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
