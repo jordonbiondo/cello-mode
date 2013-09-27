@@ -1,10 +1,10 @@
 * cello-mode
   An Emacs major mode for editing C files that use libCello.
   [[https://github.com/orangeduck/libCello][libCello can be found here]]
-** Screenshot
+** Side by Side of C-mode and  Cello-mode
    As seen with the  [[http://github.com/jordonbiondo/ample-theme][ample theme]]
 
-   [[http://i.imgur.com/PNZmHQC.png]]
+   [[http://i.imgur.com/hzSLlkn.png]]
 ** Features
    - Syntax Highlighting
    - Browse type references at point
