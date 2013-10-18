@@ -9,7 +9,7 @@
 ;; Last-Updated: Fri Oct 18 14:42:49 2013 (-0400)
 ;;           By: Jordon Biondo
 ;;     Update #: 8
-;; URL: http://github.com/jordonbiondo/libcello-mode.git
+;; URL: http://github.com/jordonbiondo/cello-mode.git
 ;; Keywords: c, languages, tools, libcello
 ;; Compatibility: Emacs 24.x
 ;; 
@@ -129,7 +129,7 @@ file's syntax, if libcello elements are found, enable the `libcello-mode'"
 (defadvice c-after-change (after check-for-libcello activate)
   "If `cello/use-active-smart-enable' is non-nil, run `cello/smart-enable' after changes are made."
   (when libcello/use-active-smart-enable (libcello/smart-enable)))
-    
+
   
 (ad-unadvise 'c-after-change)
   
