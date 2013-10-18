@@ -1,28 +1,22 @@
-;;; cello-mode.el --- Major mode for editting C source code that uses libcello
+;;; libcello-mode.el --- Minor mode for libcello syntax
 ;; 
-;; Filename: cello-mode.el
-;; Description: Major mode for editting C source code that uses libcello
+;; Filename: libcello-mode.el
+;; Description: Minor mode for extending C syntax highlighting to support libcello's fancy syntax
 ;; Author: Jordon Biondo <biondoj@mail.gvsu.edu>
 ;; Created: Sat Sep 14 21:39:32 2013 (-0400)
 ;; Version: 0.1.1
 ;; Package-Requires: ()
-;; Last-Updated: Sun Sep 15 10:00:16 2013 (-0400)
+;; Last-Updated: Fri Oct 18 14:42:49 2013 (-0400)
 ;;           By: Jordon Biondo
-;;     Update #: 5
-;; URL: http://github.com/jordonbiondo/cello-mode.git
-;; Keywords: c, languages, tools, cello
+;;     Update #: 8
+;; URL: http://github.com/jordonbiondo/libcello-mode.git
+;; Keywords: c, languages, tools, libcello
 ;; Compatibility: Emacs 24.x
 ;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
-;; Major mode for editting C source code that uses libcello
-;; 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 
-;;; Change Log:
-;;
-;;  Sat Sep 14 21:40:59 EDT 2013: creation
+;; Minor mode for extending C syntax highlighting to support libcello's fancy syntax
 ;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
@@ -45,20 +39,11 @@
 ;;
 ;;; Code:
 
-(defconst cello-home-url "libcello.org"
-  "libCello's homepage.")
+(defvar libcello/use-active-smart-enable t
+  "Non-nil mean that libcello-mode will actively scan cc-mode buffers for libcello \
+#include's or syntax and automatically activate `libcello-mode'.")
 
-(defun cello-browse-doc-at-point()
-  ;; TODO: hackish, only works on types
-  "Browse the libCello docs for the thing at point."
-  (interactive)
-  (let* ((sym (symbol-at-point))
-	 (thing-to-browse (when sym (downcase (symbol-name sym)))))
-    (if thing-to-browse
-	(browse-url (format "http://%s/reference/%s" cello-home-url thing-to-browse))
-      (message "Nothing browsable at point"))))
-
-(defconst cello-font-lock-keywords
+(defconst libcello-font-lock-keywords
   `(("\\(\\$\\)\\( *( *\\)\\(\[A-Z][A-Za-z_0-9]*\\)"
       (1 font-lock-constant-face)
       (3 font-lock-type-face))
@@ -83,7 +68,7 @@
 		  'words) . font-lock-keyword-face)
     (,(regexp-opt (list "True" "False" "None" )
 		  'words) . font-lock-constant-face)
-    ;; cello functions
+    ;; libcello functions
     (,(regexp-opt (list "lit" "cast" "delete" "allocate" "deallocate" "construct" 
 			"destruct" "assign" "copy" "eq" "neq" "gt" "lt" "ge" "le" "len" "clear" 
 			"contains" "discard" "is_empty" "sort" "maximum" "minimum" "reverse" 
@@ -102,18 +87,59 @@
 			"Reverse" "Iter" "Push" "At" "Dict" "With" "Stream" "Call" "Retain" "Sort" 
 			"Append" "Show" "Format" "Process" "Lock") 
 		  'words) . font-lock-builtin-face))
-    "A list of Cello keywords.")
+  "A list of Cello keywords.")
 
-(define-derived-mode cello-mode c-mode "Cello"
-  (setcar font-lock-defaults (append cello-font-lock-keywords c-font-lock-keywords-3))
-  (easy-menu-define cello-menu cello-mode-map "Cello Mode menu"
-    '("Cello"
-      :help "Cello-specific features"
-      ["Cello browse doc at point" cello-browse-doc-at-point
-      :help "Open the documentation for the thing at point."]
-    )))
+(define-minor-mode libcello-mode
+  "Minor mode to extend font-lock highlighting for C mode for libcello's special syntax elements. 
+
+To enable for all c-mode buffers:
+  (add-hook 'c-mode-hook 'libcello-mode)
+
+`libcello-mode' can be automatically activated on files that
+use libcello by setting `libcello/use-active-smart-enable' to a non-nil value.
+  (setq cello/use-active-smart-enable t)"
+  :init-value nil
+  :lighter "cello"
+  :keymap nil
+  :global nil
+  (if libcello-mode
+      (font-lock-add-keywords nil cello-font-lock-keywords)
+    (font-lock-remove-keywords nil cello-font-lock-keywords))
+  (font-lock-fontify-buffer))
 
 
+(defun libcello/buffer-might-be-using-libcello()
+  "Returns true if there is a good chance the current buffer is using libCello."
+  (interactive)
+  (and (member major-mode '(c-mode c++-mode))
+       (save-excursion
+         (goto-char (point-min))
+         (search-forward-regexp
+          "\\(\\(^ *#include +\"Cello.h\" *$\\)\\|\\(\\(\\lambda\\)\\( *( *\\)\\(\[a-zA-Z_][A-Za-z_0-9]*\\)\\)\\|\\(\\(\\new\\)\\( *( *\\)\\(\[A-Z][A-Za-z_0-9]*\\)\\)\\|\\(\\(\\$\\)\\( *( *\\)\\(\[A-Z][A-Za-z_0-9]*\\)\\)\\)"
+          nil t))))
+
+
+(defun libcello/smart-enable()
+  "If `libcello-mode' in the current `c-mode' or `c++-mode' buffer then look at the \
+file's syntax, if libcello elements are found, enable the `libcello-mode'"
+  (interactive)
+  (unless libcello-mode (when (cello/buffer-might-be-using-libcello) (libcello-mode t))))
+
+
+(defadvice c-after-change (after check-for-libcello activate)
+  "If `cello/use-active-smart-enable' is non-nil, run `cello/smart-enable' after changes are made."
+  (when libcello/use-active-smart-enable (libcello/smart-enable)))
+    
+  
+(ad-unadvise 'c-after-change)
+  
+			       
+			       
+			       
+	
+			       
+	 
 (provide 'cello-mode)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; cello-mode.el ends here
+  
